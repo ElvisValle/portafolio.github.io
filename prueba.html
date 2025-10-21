@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mostrar Imagen al Pasar el Mouse</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .img-hover {
+            position: absolute;
+            left: -120px; /* Mueve la imagen a la izquierda */
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" style="position: relative; display: inline-block;">
+        <img src="/img/sharlee_cover.webp" alt="Imagen" class="img-hover" id="hv  overImage">
+        <button class="btn" id="hoverButton">Pasa el mouse</button>
+    </div>
+
+    <script>
+        const button = document.getElementById("hoverButton");
+        const image = document.getElementById("hoverImage");
+
+        button.addEventListener("mouseover", () => {
+            image.style.opacity = "1";
+            image.style.visibility = "visible";
+        });
+
+        button.addEventListener("mouseout", () => {
+            image.style.opacity = "0";
+            image.style.visibility = "hidden";
+        });
+    </script>
+
+</body>
+</html>
