@@ -11,7 +11,12 @@ html body {
     height: 100%;
     overflow: hidden;
 }
-h1, h2,h3, h4,h5{
+
+h1,
+h2,
+h3,
+h4,
+h5 {
     font-family: Montserrat;
 }
 
@@ -348,21 +353,28 @@ h1, h2,h3, h4,h5{
     /* overflow: hidden; */
 }
 
-.container .nav {
+header {
+    position: fixed;
+    top: 95px;
+    right: 0;
+    left: 0;
+}
+
+.nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
     align-self: stretch;
-    padding: 0 80px;
+    padding: 0px 90px 0px 90px;
 }
 
-.container .nav .logo img {
+.nav .logo img {
     width: 121.652px;
     height: 80px;
     aspect-ratio: 121.65/80.00;
 }
 
-.container .nav .contein_menu {
+.nav .contein_menu {
     display: flex;
     padding: 10px 15px;
     flex-direction: column;
@@ -371,7 +383,7 @@ h1, h2,h3, h4,h5{
     background: black;
 }
 
-.container .nav .contein_menu .menu {
+.nav .contein_menu .menu {
     width: 30px;
     height: 30px;
     aspect-ratio: 1/1;
@@ -659,6 +671,7 @@ h1, h2,h3, h4,h5{
     width: 100%;
     text-overflow: ellipsis;
 }
+
 .projects-right ul .projects-row-left .projects-title {
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -738,4 +751,35 @@ h1, h2,h3, h4,h5{
         flex: 1 0 0;
         align-self: stretch;
     }
+}
+
+/* estilos de proyectos */
+.proyecto {
+    height: auto;
+    overflow-y: hidden;
+    position: relative;
+}
+
+.proyecto .header-proyecto {
+    display: flex;
+    flex-direction: column;
+    padding: 0 90px;
+    position: relative;
+    height: 100%;
+}
+
+.proyecto .header-proyecto .hero-imagen {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.proyecto .headre-proyectos .hero-imagen img {
+    height: 100%;
+    width: auto;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
 }
