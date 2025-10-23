@@ -694,7 +694,8 @@ header {
         background: #F3F3F3;
         overflow: hidden;
         position: relative;
-        height: auto;
+        height: 100vh;
+        position: fixed;
     }
 
     .container {
@@ -810,11 +811,26 @@ main.project-showcase {
     }
 }
 
-.hero-image {
-    aspect-ratio: 2.32;
-    object-fit: contain;
-    object-position: center;
+.content-hero-image-header {
+    height: 550px;
     width: 100%;
+}
+.hero-image-header {
+    /*aspect-ratio: 2.32;*/
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-radius: 0px 0px 70px 70px;
+}
+.content-hero-image {
+    height: 30%;
+    width: 100%;
+}
+.hero-image {
+    /*aspect-ratio: 2.32;*/
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
     border-radius: 0px 0px 70px 70px;
 }
 
@@ -839,8 +855,8 @@ main.project-showcase {
     display: flex;
     width: 100%;
     align-items: center;
-    font-size: 32px;
-    font-weight: 900;
+    font-size: 40px;
+    font-weight: 800;
     justify-content: space-between;
 }
 
@@ -853,6 +869,7 @@ main.project-showcase {
 .project-title {
     text-shadow: 0px 4px 4px rgba(255, 255, 255, 0.25);
     align-self: stretch;
+    color: #41180D;
     flex: 1;
     flex-shrink: 1;
     flex-basis: 0%;
@@ -870,7 +887,7 @@ main.project-showcase {
 .divider {
     background-color: rgba(217, 217, 217, 1);
     display: flex;
-    min-height: 5px;
+    min-height: 3px;
     margin-top: 15px;
     width: 100%;
 }
@@ -915,6 +932,7 @@ main.project-showcase {
     font-weight: 700;
     white-space: nowrap;
     justify-content: start;
+    color: #41180D;
 }
 
 @media (max-width: 991px) {
@@ -973,10 +991,11 @@ main.project-showcase {
     margin-top: 15px;
     width: 100%;
     align-items: center;
-    font-size: 32px;
-    font-weight: 900;
+    font-size: 24px;
+    font-weight: 700;
     text-align: center;
     justify-content: space-between;
+    color: #41180D;
 }
 
 @media (max-width: 991px) {
@@ -1003,8 +1022,7 @@ main.project-showcase {
 }
 
 .brand-image {
-    aspect-ratio: 5.43;
-    object-fit: contain;
+    object-fit: cover;
     object-position: center;
     width: 100%;
     margin-top: 15px;
@@ -1015,4 +1033,35 @@ main.project-showcase {
     .brand-image {
         max-width: 100%;
     }
+}
+
+/*estilos de proyectos moviles*/
+@media (max-width: 767px){
+    .content-hero-image-header{
+        height: 300px;
+        padding: 80px 0 0 0;
+    }
+    .hero-image-header{
+        border-radius: 30px;
+    }
+    header{
+        top: 15px;
+        z-index: 3;
+    }
+    .nav{
+        padding: 0 19px 0 24px;
+    }
+    .nav .logo img{
+        width: auto;
+        height: 45px;
+    }
+    .nav .contein_menu{
+        padding: 8px 12px;
+        
+    }
+    .nav .contein_menu .menu{
+        width: 25px;
+        height: 25px;
+    }
+      
 }
