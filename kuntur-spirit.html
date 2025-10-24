@@ -134,15 +134,19 @@
                         <div class="divider"></div>
                         <section class="project-info">
                             <div class="metadata-section">
-                                <div class="metadata-labels">
+                                <div class="metadata-item">
                                     <h3 class="metadata-label">Categoría</h3>
-                                    <h3 class="metadata-label">Año</h3>
-                                    <h3 class="metadata-label">Cliente</h3>
+                                    <p class="metadata-value">Desarrollo Web - Diseño UX/UI</p>
                                 </div>
-                                <div class="metadata-values">
-                                    <p class="metadata-value">Desarrollo Web-Diseño UX/UI</p>
+
+                                <div class="metadata-item">
+                                    <h3 class="metadata-label">Año</h3>
                                     <p class="metadata-value">2025</p>
-                                    <p class="metadata-value">Kuntur Spirit </p>
+                                </div>
+
+                                <div class="metadata-item">
+                                    <h3 class="metadata-label">Cliente</h3>
+                                    <p class="metadata-value">Kuntur Spirit</p>
                                 </div>
                             </div>
                             <p class="project-description">
@@ -166,10 +170,57 @@
                         <h2 class="section-title">Entrada Sobre Kuntur Spirit</h2>
                     </section>
                     <img src="./img/kuntur-nosotros.jpg" alt="Pautas de la marca" class="brand-image" />
+                    <div class="divider"></div>
+                    <div class="next-project">
+                        <hr><a href="/work/dua-lipa">
+                            <div class="next-project-wrapper">
+                                <div class="next-project-left">
+                                    <div class="next-project-selected-wrapper">
+                                        <h4 class="next-project-selected"
+                                            style="transform: translateX(-100%) translateZ(0px);">→</h4>
+                                    </div>
+                                    <h4 class="next-project-title" style="transform: none;">Next project</h4>
+                                </div>
+                                <div class="next-project-right">
+                                    <h4>Dua Lipa</h4>
+                                    <p>Portrait</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
                 </article>
             </div>
         </div>
     </main>
+
+    <script>
+        (function () {
+            const overlay = document.getElementById('menuOverlay');
+            const openBtn = document.querySelector('.menu-btn');
+            const closeBtn = document.getElementById('menuClose');
+            const links = overlay.querySelectorAll('.menu-list a');
+
+            function openMenu() {
+                overlay.classList.add('open');
+                openBtn.setAttribute('aria-expanded', 'true');
+                overlay.setAttribute('aria-hidden', 'false');
+                document.body.classList.add('menu-open');
+            }
+            function closeMenu() {
+                overlay.classList.remove('open');
+                openBtn.setAttribute('aria-expanded', 'false');
+                overlay.setAttribute('aria-hidden', 'true');
+                document.body.classList.remove('menu-open');
+            }
+
+            openBtn.addEventListener('click', openMenu);
+            closeBtn.addEventListener('click', closeMenu);
+            overlay.addEventListener('click', (e) => { if (e.target === overlay) closeMenu(); });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+            links.forEach(a => a.addEventListener('click', closeMenu));
+        })();
+    </script>
 </body>
 
 </html>

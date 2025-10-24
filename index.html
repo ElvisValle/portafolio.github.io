@@ -18,7 +18,8 @@
     <div class="fondo">
         <div class="contein_text">
             <div class="group1">
-                <p>SOY CREATIVO - DETALLISTA - SOY CREATIVO - DETALLISTA - SOY CREATIVO - DETALLISTA - SOY CREATIVO - DETALLISTA -</p>
+                <p>SOY CREATIVO - DETALLISTA - SOY CREATIVO - DETALLISTA - SOY CREATIVO - DETALLISTA - SOY CREATIVO -
+                    DETALLISTA -</p>
             </div>
             <div class="group2">
                 <p class="text1">- VISUAL - ESTRATEGICO </p>
@@ -60,7 +61,8 @@
                 <p class="text2">ESTRUCTURADO -</p>
             </div>
             <div class="group1">
-                <p>SOY CREATIVO - DETALLISTA - SOY CREATIVO - DETALLISTA - SOY CREATIVO - DETALLISTA - SOY CREATIVO - DETALLISTA -</p>
+                <p>SOY CREATIVO - DETALLISTA - SOY CREATIVO - DETALLISTA - SOY CREATIVO - DETALLISTA - SOY CREATIVO -
+                    DETALLISTA -</p>
             </div>
             <div class="group2">
                 <p class="text1">- VISUAL - ESTRATEGICO </p>
@@ -112,10 +114,9 @@
                 <img src="/img/logo.svg" alt="">
             </div>
             <div class="contein_menu">
-                <div class="menu">
-                    <img src="/img/menu.svg" alt="">
-                </div>
-
+                <button class="menu-btn" aria-controls="menuOverlay" aria-expanded="false" aria-label="Abrir menú">
+                    <img src="./img/menu.svg" alt="Abrir menú">
+                </button>
             </div>
 
         </div>
@@ -126,7 +127,8 @@
                     <p class="elvis">SOY ELVIS</p>
                     <p class="valle">VALLE</p>
                 </div>
-                <p class="info_presen">Soy un ingeniero de sistemas especializado en diseño gráfico, diseño UX/UI y desarrollo front-end.</p>
+                <p class="info_presen">Soy un ingeniero de sistemas especializado en diseño gráfico, diseño UX/UI y
+                    desarrollo front-end.</p>
             </div>
             <div class="butons_info">
                 <a href="sobre_mi.html" class="mas_info">
@@ -138,12 +140,73 @@
                     <p>Ver mis Proyectos</p>
                 </a>
             </div>
-            
-            
+
+
 
         </div>
 
     </div>
+
+    <!-- MENU OVERLAY -->
+    <div id="menuOverlay" class="menu-overlay" aria-hidden="true">
+        <div class="menu-wrap">
+            <!-- Top bar -->
+            <div class="menu-top">
+                <div class="brand">
+                    <img class="brand-logo" src="./img/logo-blanco.png" alt="Logo">
+                    <span class="brand-name">/ElvisValle</span>
+                </div>
+                <div class="menu-actions">
+                    
+                    <a id="menuClose" class="icon" aria-label="Cerrar menú">
+                        <img src="./img/cerrar.svg" alt="Abrir menú">
+                    </a>
+                </div>
+            </div>
+
+            <!-- Listado -->
+            <nav class="menu-list" role="navigation" aria-label="Principal">
+                <a href="#" class="row"><span class="idx">01</span><span class="link">INICIO</span></a>
+                <a href="/proyectos.html" class="row"><span class="idx">02</span><span class="link">PROYECTOS</span></a>
+                <a href="/sobre_mi.html" class="row"><span class="idx">03</span><span class="link">SOBRE MI</span></a>
+                <a href="#contact" class="row"><span class="idx">04</span><span class="link">CONTACTO</span></a>
+            </nav>
+
+            <!-- Social -->
+            <div class="menu-social">
+                <a href="https://instagram.com" target="_blank" rel="noreferrer noopener">↗ instagram</a>
+                <a href="https://behance.net" target="_blank" rel="noreferrer noopener">↗ behance</a>
+            </div>
+        </div>
+    </div>
+    <!-- /MENU OVERLAY -->
+    <script>
+        (function () {
+            const overlay = document.getElementById('menuOverlay');
+            const openBtn = document.querySelector('.menu-btn');
+            const closeBtn = document.getElementById('menuClose');
+            const links = overlay.querySelectorAll('.menu-list a');
+
+            function openMenu() {
+                overlay.classList.add('open');
+                openBtn.setAttribute('aria-expanded', 'true');
+                overlay.setAttribute('aria-hidden', 'false');
+                document.body.classList.add('menu-open');
+            }
+            function closeMenu() {
+                overlay.classList.remove('open');
+                openBtn.setAttribute('aria-expanded', 'false');
+                overlay.setAttribute('aria-hidden', 'true');
+                document.body.classList.remove('menu-open');
+            }
+
+            openBtn.addEventListener('click', openMenu);
+            closeBtn.addEventListener('click', closeMenu);
+            overlay.addEventListener('click', (e) => { if (e.target === overlay) closeMenu(); });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+            links.forEach(a => a.addEventListener('click', closeMenu));
+        })();
+    </script>
 
 </body>
 

@@ -10,6 +10,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <title>Document</title>
+    <!-- Preload de imágenes principales -->
+    <link rel="preload" href="./img/kuntur.webp" as="image" />
+    <link rel="preload" href="./img/index-kuntur.jpg" as="image" />
+    <link rel="preload" href="./img/index-kuntur2.jpg" as="image" />
 
 </head>
 
@@ -121,53 +125,30 @@
             </div>
 
         </div>
-        <div class="proyectos-me">
-            <div class="proyecto-left">
-                <div class="proyecto-left-inside" >
-                    <div class="proyecto-imagen" id="hoverImage" >
-                        <div class="proyecto-imagen-escala" style="transform: none;">
-                            <img src="./img/kuntur.webp" alt=""
-                                style="position: absolute; height: 100%; width: 100%;  ">
-                        </div>
+
+        <div class="wrap">
+            <div class="layout">
+                <!-- LEFT PREVIEW -->
+                <section class="preview" id="preview">
+                    <div class="hero">
+                        <img id="heroImg" src="https://picsum.photos/1280/720?random=1" alt="preview" />
+
                     </div>
-                </div>
-            </div>
-            <div class="proyecto-right">
-                <div>
-                    <div class="page-head">
-                        <h1 class="page-title">Trabajos</h1>
-                        <h5 class="page-number">2</h5>
+                </section>
+
+                <!-- RIGHT LIST -->
+                <aside class="list">
+                    <div class="list-head">
+                        <h2 class="work-title">PROYECTOS</h2>
+                        <div class="work-count" id="workCount">0</div>
                     </div>
-                    <hr class="head-separador">
-                </div>
-                <ul>
-                    <li>
-                        <a href="">
-                            <div class="proyects-row" id="hoverButton">
-                                <div class="proyects-row-left">
-                                    <h4 class="proyects-title">Kuntur Spirit</h4>
+                    <div class="divider"></div>
+                    <div class="items" id="items">
 
-                                </div>
+                    </div>
 
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <div class="proyects-row" id="hoverButton">
-                                <div class="proyects-row-left">
-                                    <h4 class="proyects-title">Kusikuy</h4>
-
-                                </div>
-
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-
+                </aside>
             </div>
-
-
         </div>
 
     </div>
@@ -185,6 +166,98 @@
             image.style.visibility = "hidden";
         });
     </script>
+    <script>
+        const projects = [
+            {
+                name: "Kuntur Spirit",
+                cat: "Web Development",
+                badge: "2025 · Web/UX",
+                img: "./img/kuntur.webp",
+            },
+            {
+                name: "CodeTeam",
+                cat: "Diseño UX/UI",
+                badge: "2024 · Branding",
+                img: "./img/index-kuntur.jpg",
+            },
+            {
+                name: "Sami Tours",
+                cat: "Web Development",
+                badge: "2025 · Web",
+                img: "./img/index-kuntur2.jpg",
+            },
+            {
+                name: "HVgraf Cusco",
+                cat: "Web Development",
+                badge: "2025 · Web",
+                img: "./img/kuntur.webp",
+            },
+        ];
+
+        const itemsEl = document.getElementById("items");
+        const workCount = document.getElementById("workCount");
+        const heroImg = document.getElementById("heroImg");
+
+        let currentIdx = -1;
+
+        // 🧠 Precarga anticipada de imágenes
+        projects.forEach(p => {
+            const img = new Image();
+            img.src = p.img;
+        });
+
+        // Generar lista
+        function renderList() {
+            workCount.textContent = projects.length;
+            itemsEl.innerHTML = projects
+                .map(
+                    (p, i) => `
+          <div class="item" data-idx="${i}">
+            <div class="item-name"><span class="arrow">→ </span>${p.name}</div>
+            <div class="item-cat">${p.cat}</div>
+          </div>
+        `
+                )
+                .join("");
+        }
+
+        renderList();
+
+        // 🎨 Mejorar rendimiento de la imagen principal
+        heroImg.style.willChange = "opacity, transform";
+        heroImg.style.transform = "translateZ(0)";
+        heroImg.style.transition = "opacity 0.35s ease";
+
+        // EVENTOS: Hover sobre lista
+        itemsEl.addEventListener("pointerover", e => {
+            const item = e.target.closest(".item");
+            if (!item) return;
+            const idx = parseInt(item.dataset.idx);
+            if (idx === currentIdx) return;
+
+            currentIdx = idx;
+            const project = projects[idx];
+
+            heroImg.style.opacity = "0";
+            heroImg.style.visibility = "visible";
+
+            // Esperar solo al siguiente frame para cambiar la imagen (sin reflow)
+            requestAnimationFrame(() => {
+                heroImg.src = project.img;
+                heroImg.onload = () => {
+                    heroImg.style.opacity = "1";
+                };
+            });
+        });
+
+        // Al salir de la lista → fade out sin quitar src
+        itemsEl.addEventListener("pointerleave", () => {
+            heroImg.style.opacity = "0";
+            heroImg.style.visibility = "hidden";
+            currentIdx = -1;
+        });
+    </script>
+
 
 </body>
 
