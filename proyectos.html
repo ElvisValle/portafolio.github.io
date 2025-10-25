@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
-    <title>Document</title>
+    <title>Elvis Valle — Portfolio</title>
     <!-- Preload de imágenes principales -->
     <link rel="preload" href="./img/kuntur.webp" as="image" />
     <link rel="preload" href="./img/index-kuntur.jpg" as="image" />
@@ -114,14 +114,13 @@
     </div>
     <div class="container" style="">
         <div class="nav" style="">
-            <div class="logo">
+            <a class="logo" href="/">
                 <img src="/img/logo.svg" alt="">
-            </div>
+            </a>
             <div class="contein_menu">
-                <div class="menu">
-                    <img src="/img/menu.svg" alt="">
-                </div>
-
+                <button class="menu-btn" aria-controls="menuOverlay" aria-expanded="false" aria-label="Abrir menú">
+                    <img src="./img/menu.svg" alt="Abrir menú">
+                </button>
             </div>
 
         </div>
@@ -131,8 +130,7 @@
                 <!-- LEFT PREVIEW -->
                 <section class="preview" id="preview">
                     <div class="hero">
-                        <img id="heroImg" src="https://picsum.photos/1280/720?random=1" alt="preview" />
-
+                        <img id="heroImg" src="" alt="" loading="lazy" />
                     </div>
                 </section>
 
@@ -143,55 +141,52 @@
                         <div class="work-count" id="workCount">0</div>
                     </div>
                     <div class="divider"></div>
-                    <div class="items" id="items">
-
-                    </div>
-
+                    <div class="items" id="items"></div>
                 </aside>
             </div>
         </div>
 
     </div>
-    <script>
-        const button = document.getElementById("hoverButton");
-        const image = document.getElementById("hoverImage");
+    <!-- MENU OVERLAY -->
+    <div id="menuOverlay" class="menu-overlay" aria-hidden="true">
+        <div class="menu-wrap">
+            <!-- Top bar -->
+            <div class="menu-top">
+                <div class="brand">
+                    <img class="brand-logo" src="./img/logo-blanco.png" alt="Logo">
+                    <span class="brand-name">/ElvisValle</span>
+                </div>
+                <div class="menu-actions">
+                    
+                    <a id="menuClose" class="icon" aria-label="Cerrar menú">
+                        <img src="./img/cerrar.svg" alt="Abrir menú">
+                    </a>
+                </div>
+            </div>
 
-        button.addEventListener("mouseover", () => {
-            image.style.opacity = "1";
-            image.style.visibility = "visible";
-        });
+            <!-- Listado -->
+            <nav class="menu-list" role="navigation" aria-label="Principal">
+                <a href="/" class="row"><span class="idx">01</span><span class="link">INICIO</span></a>
+                <a href="/proyectos.html" class="row"><span class="idx">02</span><span class="link">PROYECTOS</span></a>
+                <a href="/sobre_mi.html" class="row"><span class="idx">03</span><span class="link">SOBRE MI</span></a>
+                <a href="#contact" class="row"><span class="idx">04</span><span class="link">CONTACTO</span></a>
+            </nav>
 
-        button.addEventListener("mouseout", () => {
-            image.style.opacity = "0";
-            image.style.visibility = "hidden";
-        });
-    </script>
+            <!-- Social -->
+            <div class="menu-social">
+                <a href="https://instagram.com" target="_blank" rel="noreferrer noopener">↗ instagram</a>
+                <a href="https://behance.net" target="_blank" rel="noreferrer noopener">↗ behance</a>
+            </div>
+        </div>
+    </div>
+    <!-- /MENU OVERLAY -->
+     <!-- script de todos los proyectos -->
     <script>
         const projects = [
-            {
-                name: "Kuntur Spirit",
-                cat: "Web Development",
-                badge: "2025 · Web/UX",
-                img: "./img/kuntur.webp",
-            },
-            {
-                name: "CodeTeam",
-                cat: "Diseño UX/UI",
-                badge: "2024 · Branding",
-                img: "./img/index-kuntur.jpg",
-            },
-            {
-                name: "Sami Tours",
-                cat: "Web Development",
-                badge: "2025 · Web",
-                img: "./img/index-kuntur2.jpg",
-            },
-            {
-                name: "HVgraf Cusco",
-                cat: "Web Development",
-                badge: "2025 · Web",
-                img: "./img/kuntur.webp",
-            },
+            { name: "Kuntur Spirit", cat: "Web Development", img: "./img/kuntur.webp", link: "kuntur-spirit.html" },
+            { name: "CodeTeam", cat: "Diseño UX/UI", img: "./img/codeteam.webp", link: "code-team.html" },
+            { name: "Qataya", cat: "Diseño UX/UI", img: "./img/qataya.webp", link: "qataya.html" },
+            { name: "HVgraf Cusco", cat: "Web Development", img: "./img/kuntur.webp", link: "kuntur-hvgraf.html" },
         ];
 
         const itemsEl = document.getElementById("items");
@@ -199,63 +194,104 @@
         const heroImg = document.getElementById("heroImg");
 
         let currentIdx = -1;
+        let hoverTimeout;
 
-        // 🧠 Precarga anticipada de imágenes
+        // Preload imágenes sin bloquear el render
         projects.forEach(p => {
             const img = new Image();
             img.src = p.img;
+            img.loading = "lazy";
         });
 
-        // Generar lista
-        function renderList() {
-            workCount.textContent = projects.length;
-            itemsEl.innerHTML = projects
-                .map(
-                    (p, i) => `
-          <div class="item" data-idx="${i}">
-            <div class="item-name"><span class="arrow">→ </span>${p.name}</div>
-            <div class="item-cat">${p.cat}</div>
-          </div>
-        `
-                )
-                .join("");
-        }
+        // Render lista de proyectos
+        workCount.textContent = projects.length;
+        itemsEl.innerHTML = projects
+            .map(
+                (p, i) => `
+      <div class="item" data-idx="${i}" data-link="${p.link}">
+        <div class="item-name"><span class="arrow">→ </span>${p.name}</div>
+        <div class="item-cat">${p.cat}</div>
+      </div>`
+            )
+            .join("");
 
-        renderList();
+        // Configuración inicial de la imagen
+        Object.assign(heroImg.style, {
+            opacity: "0",
+            visibility: "hidden",
+            transition: "opacity 0.4s ease",
+            willChange: "opacity, transform",
+            transform: "translateZ(0)",
+        });
 
-        // 🎨 Mejorar rendimiento de la imagen principal
-        heroImg.style.willChange = "opacity, transform";
-        heroImg.style.transform = "translateZ(0)";
-        heroImg.style.transition = "opacity 0.35s ease";
-
-        // EVENTOS: Hover sobre lista
+        // Efecto hover optimizado
         itemsEl.addEventListener("pointerover", e => {
             const item = e.target.closest(".item");
             if (!item) return;
             const idx = parseInt(item.dataset.idx);
             if (idx === currentIdx) return;
-
             currentIdx = idx;
-            const project = projects[idx];
 
-            heroImg.style.opacity = "0";
-            heroImg.style.visibility = "visible";
+            clearTimeout(hoverTimeout);
+            hoverTimeout = setTimeout(() => {
+                const project = projects[idx];
+                if (heroImg.src.endsWith(project.img)) return; // evita recarga innecesaria
+                heroImg.style.opacity = "0";
 
-            // Esperar solo al siguiente frame para cambiar la imagen (sin reflow)
-            requestAnimationFrame(() => {
-                heroImg.src = project.img;
-                heroImg.onload = () => {
-                    heroImg.style.opacity = "1";
-                };
-            });
+                requestAnimationFrame(() => {
+                    heroImg.src = project.img;
+                    heroImg.onload = () => {
+                        heroImg.style.visibility = "visible";
+                        heroImg.style.opacity = "1";
+                    };
+                });
+            }, 100); // pequeño retraso para evitar sobrecarga al mover rápido el cursor
         });
 
-        // Al salir de la lista → fade out sin quitar src
+        // Ocultar imagen al salir
         itemsEl.addEventListener("pointerleave", () => {
+            clearTimeout(hoverTimeout);
             heroImg.style.opacity = "0";
-            heroImg.style.visibility = "hidden";
             currentIdx = -1;
         });
+
+        // Click → abrir página del proyecto
+        itemsEl.addEventListener("click", e => {
+            const item = e.target.closest(".item");
+            if (!item) return;
+            const link = item.dataset.link;
+            if (link) window.location.href = link;
+        });
+    </script>
+
+    
+
+    <script>
+        (function () {
+            const overlay = document.getElementById('menuOverlay');
+            const openBtn = document.querySelector('.menu-btn');
+            const closeBtn = document.getElementById('menuClose');
+            const links = overlay.querySelectorAll('.menu-list a');
+
+            function openMenu() {
+                overlay.classList.add('open');
+                openBtn.setAttribute('aria-expanded', 'true');
+                overlay.setAttribute('aria-hidden', 'false');
+                document.body.classList.add('menu-open');
+            }
+            function closeMenu() {
+                overlay.classList.remove('open');
+                openBtn.setAttribute('aria-expanded', 'false');
+                overlay.setAttribute('aria-hidden', 'true');
+                document.body.classList.remove('menu-open');
+            }
+
+            openBtn.addEventListener('click', openMenu);
+            closeBtn.addEventListener('click', closeMenu);
+            overlay.addEventListener('click', (e) => { if (e.target === overlay) closeMenu(); });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+            links.forEach(a => a.addEventListener('click', closeMenu));
+        })();
     </script>
 
 
