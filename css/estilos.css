@@ -23,7 +23,7 @@ h5 {
 .noise__overlay {
     z-index: 2147483647;
     opacity: .05;
-    background-image: url(/img/noise.BVZAnKJ_.gif);
+    background-image: url(./img/noise.BVZAnKJ_.gif);
     background-position: 0 0;
     background-size: 480px;
     background-attachment: fixed;
@@ -1488,4 +1488,5 @@ body.menu-open {
     .arrow{
         display: none;
     }
+
 }
