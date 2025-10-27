@@ -11,6 +11,7 @@ p {
 html body {
     height: 100%;
     overflow: hidden;
+    overflow-x: hidden; 
 }
 
 h1,
@@ -727,6 +728,7 @@ header {
     body {
         overflow: auto;
         /* Permite el scroll en móviles */
+        overflow-x: hidden; 
     }
 
     .fondo {
