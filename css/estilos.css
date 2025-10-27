@@ -1505,14 +1505,18 @@ body.menu-open {
 .items {
     font-size: 20px;
     padding-top: 20px;
-    max-height: calc(5 * 70px);
+    max-height: calc(7 * 70px);
     /* altura estimada para 5 proyectos */
-    overflow-y: auto;
+    overflow-y: scroll;
+    /* permite el desplazamiento vertical */
+    scrollbar-width: none;
+    /* oculta el scroll en Firefox */
 }
 
 /* Scroll estilizado (para Chrome, Edge, Safari) */
 .items::-webkit-scrollbar {
     width: 6px;
+    display: none;
 }
 
 .items::-webkit-scrollbar-thumb {
@@ -1522,6 +1526,17 @@ body.menu-open {
 
 .items::-webkit-scrollbar-thumb:hover {
     background-color: #666;
+}
+
+@media (max-width: 1400px) {
+    .items {
+        max-height: calc(5 * 60px);
+    }
+}
+@media (max-width: 760px) {
+    .items {
+        max-height: calc(7 * 70px);
+    }
 }
 
 .item {
